@@ -1,0 +1,18 @@
+version: '2'
+services:
+  filebeat:
+    tty: true
+    image: ${filebeat_image}:${filebeat_version}
+    ${volumes}
+    environment:
+      COMMIT_ID: ${commit_id}
+    ${ports}
+    ${external_links}
+    ${mem_limit}
+    cpu_shares: ${cpu_shares}
+    labels:
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$$$${stack_name}/$$$${service_name}
+      io.rancher.scheduler.affinity:host_label: ${label_scheduling}
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: ${global_scheduling}
