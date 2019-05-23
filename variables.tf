@@ -51,3 +51,12 @@ variable "external_links" {
   type = "list"
   default = []
 }
+
+variable "cpu_shares" {
+  description = "The maximum of CPU usage that Elasticsearch container can consume"
+  default = "1024"
+}
+
+variable "container_memory" {
+  description = "The maximum of memory that Elasticsearch container can consume"
+}
