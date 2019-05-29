@@ -1,38 +1,19 @@
-# terraform-module-rancher-logstash
+# terraform-module-rancher-filebeat
 
-This module permit to deploy Logstash stack on Rancher.
+This module permit to deploy Filebeat stack on Rancher.
 
+
+Sample:
 ```
-terragrunt = {
-  terraform {
-    source = "git::https://github.com/langoureaux-s/terraform-module-rancher-cloud9.git"
-  }
+module "filebeat" {
+  source = "github.com/langoureaux-s/terraform-module-rancher-filebeat"
   
-  project_name              = "test"
-  stack_name                = "logstash"
-  finish_upgrade            = "true"
-  label_global_scheduling   = "processing=true"
-  data_path                 = "/data/logstash"
-  jvm_memory                = "2g"
-  enable_monitoring         = "false"
-  logstash_system_password  = "y1546n02h482I1u3"
-  client_stack              = "elasticsearch/elasticsearch"
-  number_workers            = "4"
-  container_memory          = "4g"
-  input_rules               = <<EOF
-beats {
-  port            => 5003
-  ssl             => false
-}
-EOF
-  output_rules              = <<EOF
-elasticsearch {
-  hosts       => [ "elasticsearch-client" ]
-  index       => "logstash-logs"
-  user        => "logstash"
-  password    => "y1546n02h482I1u56"
-}
-EOF
+  project_name            = "test"
+  stack_name              = "filebeat"
+  label_scheduling        = "env=test,filebeat=true"
+  finish_upgrade          = "true"
+  container_memory        = "1g"
+  volumes                 = ["/data/filebeat/ssl:/usr/share/filebeat/ssl", "/data/filebeat/conf:/conf", "/data/filebeat/data:/usr/share/filebeat/data", "/data/traces:/traces"]
 }
 ```
 
