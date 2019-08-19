@@ -4,7 +4,7 @@ services:
     start_on_create: true
     ${scale}
     health_check:
-      port: 12345
+      port: 5066
       interval: 30000
       unhealthy_threshold: 3
       healthy_threshold: 3
@@ -12,4 +12,4 @@ services:
       strategy: recreate
       initializing_timeout: 120000
       reinitializing_timeout: 120000
-      request_line: GET /debug/vars HTTP/1.1
+      request_line: GET / HTTP/1.1
