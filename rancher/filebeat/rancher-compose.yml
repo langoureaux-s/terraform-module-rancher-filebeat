@@ -9,7 +9,7 @@ services:
       unhealthy_threshold: 3
       healthy_threshold: 3
       response_timeout: 5000
-      strategy: none
+      strategy: recreate
       initializing_timeout: 120000
       reinitializing_timeout: 120000
       request_line: GET / HTTP/1.0
